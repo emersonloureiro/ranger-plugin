@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description name="Ranger Plugin" url="http://ranger-plugin.googlecode.com/svn/project/ranger-update-site/">
+      Update site for Ranger, the eclipse plugin for finding tests - and thus functionality - that may pass through a given method in your code base.
+   </description>
+   <feature url="features/ranger_plugin_feature_1.0.0.rc1.jar" id="ranger_plugin_feature" version="1.0.0.rc1" os="win32">
+      <category name="ranger_plugin"/>
+   </feature>
+   <category-def name="ranger_plugin" label="Ranger plugin">
+      <description>
+         Ranger plugin
+      </description>
+   </category-def>
+</site>
