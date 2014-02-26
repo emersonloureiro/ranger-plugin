@@ -1,4 +1,4 @@
-package net.ranger.extentions.junit;
+package net.ranger.extensions.junit;
 
 import net.ranger.core.JavaFile;
 import net.ranger.core.Source;
@@ -13,7 +13,6 @@ import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.ITypeHierarchy;
 import org.jmock.Expectations;
-
 
 /**
  * The class <code>JUnitTestCheckerTest</code> contains tests for the class
@@ -41,39 +40,46 @@ public class JUnitTestCheckerTest extends UnitTestHelper {
 	public void testIsTest() throws Exception {
 		// First, we check with a source which isn't associated with a method
 		IJavaElement nonMethodJavaElement = this.mock(IJavaElement.class);
-		Source sourceMock = this.createIsTestSourceMock(nonMethodJavaElement, "testA", false, false);
+		Source sourceMock = this.createIsTestSourceMock(nonMethodJavaElement, "testA", false, false, false);
 		assertFalse("Source object doesn't refer to a method, so can't be a test!", this.jUnitTestChecker.isTest(sourceMock));
 
 		// Then, we check with a source associated with a method, whose name doesn't start with "test"
 		// and which isn't annotated with the JUnit test annotation
 		IMethod methodJavaElement = this.mock(IMethod.class);
-		sourceMock = this.createIsTestSourceMock(methodJavaElement, "methodA", false, false);
+		sourceMock = this.createIsTestSourceMock(methodJavaElement, "methodA", false, false, false);
 		assertFalse("Method isn't a test!", this.jUnitTestChecker.isTest(sourceMock));
 
 		// Now check a source associated with a method whose name starts with "test", but isn't defined
-		// inside a unit test class, or a class that inherits indirectly from it (so essentially, not a test).
+		// inside a unit test class, or a class that inherits indirectly from it (so essentially, not a test),
+		// neither it's annotated with the JUnit @RunWith annotation.
 		methodJavaElement = this.mock(IMethod.class);
-		sourceMock = this.createIsTestSourceMock(methodJavaElement, "testA", false, false);
+		sourceMock = this.createIsTestSourceMock(methodJavaElement, "testA", false, false, false);
 		assertFalse("Method isn't a test!", this.jUnitTestChecker.isTest(sourceMock));
 
 		// Now check a source associated with a method whose name starts with "test", and it's defined inside
 		// a class that directly/indirectly inherits from the JUnit unit test class
 		methodJavaElement = this.mock(IMethod.class);
-		sourceMock = this.createIsTestSourceMock(methodJavaElement, "testA", true, false);
+		sourceMock = this.createIsTestSourceMock(methodJavaElement, "testA", true, false, false);
+		assertTrue("Method is a test!", this.jUnitTestChecker.isTest(sourceMock));
+
+		// Now check a source associated with a method whose name starts with "test", and it's defined inside
+		// a class annotated with the JUnit @RunWith annotation
+		methodJavaElement = this.mock(IMethod.class);
+		sourceMock = this.createIsTestSourceMock(methodJavaElement, "testA", false, false, true);
 		assertTrue("Method is a test!", this.jUnitTestChecker.isTest(sourceMock));
 
 		// Now check a source associated with a method whose name doesn't start with "test", 
 		// it's got an JUnit test annotation, but isn't defined
 		// inside a class that directly/indirectly inherits from the JUnit unit test class
 		methodJavaElement = this.mock(IMethod.class);
-		sourceMock = this.createIsTestSourceMock(methodJavaElement, "methodA", false, true);
+		sourceMock = this.createIsTestSourceMock(methodJavaElement, "methodA", false, true, false);
 		assertFalse("Method isn't a test!", this.jUnitTestChecker.isTest(sourceMock));
 
 		// Now check a source associated with a method whose name doesn't start with "test", 
 		// it's got an JUnit test annotation, and it's defined inside
 		// a class that indirectly inherits from the JUnit unit test class
 		methodJavaElement = this.mock(IMethod.class);
-		sourceMock = this.createIsTestSourceMock(methodJavaElement, "methodA", true, true);
+		sourceMock = this.createIsTestSourceMock(methodJavaElement, "methodA", true, true, false);
 		assertTrue("Method is a test!", this.jUnitTestChecker.isTest(sourceMock));
 	}
 
@@ -122,7 +128,7 @@ public class JUnitTestCheckerTest extends UnitTestHelper {
 		return source;
 	}
 
-	private Source createIsTestSourceMock(final IJavaElement javaElement, final String name, final boolean test, final boolean annotated) throws Exception {
+	private Source createIsTestSourceMock(final IJavaElement javaElement, final String name, final boolean test, final boolean testAnnotated, final boolean runWithAnnotated) throws Exception {
 		final Source source = this.mock(Source.class);
 		final JavaFile javaFile = this.mock(JavaFile.class);
 		final ICompilationUnit compilationUnit = this.mock(ICompilationUnit.class);
@@ -132,6 +138,7 @@ public class JUnitTestCheckerTest extends UnitTestHelper {
 		superClasses[0] = this.mock(IType.class);
 		superClasses[1] = this.mock(IType.class);
 		final IAnnotation testAnnotation = this.mock(IAnnotation.class);
+		final IAnnotation runWithAnnotation = this.mock(IAnnotation.class);
 
 		this.getMockery().checking(new Expectations() {
 			{
@@ -145,20 +152,35 @@ public class JUnitTestCheckerTest extends UnitTestHelper {
 				will(returnValue(name));
 
 				if (javaElement instanceof IMethod) {
-					atLeast(0).of((IMethod) javaElement).getAnnotation(with(aNonNull(String.class)));
-					will(returnValue(testAnnotation));
+					atLeast(0).of((IMethod) javaElement).getAnnotations();
+					will(returnValue(new IAnnotation[] { testAnnotation }));
 				}
 
-				atLeast(0).of(testAnnotation).exists();
-				if (annotated) {
-					will(returnValue(true));
+				atLeast(0).of(testAnnotation).getElementName();
+				if (testAnnotated) {
+					will(returnValue(JUnitTestChecker.JUNIT_TEST_ANNOTATION));
 				} else {
-					will(returnValue(false));
+					will(returnValue("Whatever"));
 				}
 
 				atLeast(0).of(javaFile).getCompilationUnit();
 				will(returnValue(compilationUnit));
 
+				atLeast(0).of(primaryType).getAnnotations();
+				if (runWithAnnotated) {
+					will(returnValue(new IAnnotation[] { runWithAnnotation }));
+					atLeast(1).of(runWithAnnotation).getElementName();
+					will(returnValue(JUnitTestChecker.JUNIT_RUN_WITH_ANNOTATION));
+				} else {
+					will(returnValue(new IAnnotation[] {}));
+				}
+				
+				atLeast(0).of(superClasses[0]).getAnnotations();
+				will(returnValue(new IAnnotation[] {}));
+
+				atLeast(0).of(superClasses[1]).getAnnotations();
+				will(returnValue(new IAnnotation[] {}));
+				
 				atLeast(0).of(compilationUnit).findPrimaryType();
 				will(returnValue(primaryType));
 

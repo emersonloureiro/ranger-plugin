@@ -1,5 +1,6 @@
-target
-svn
+**/.project
+**/.svn
+**/target
+**/.classpath
+**/.settings
 *~
-
-

@@ -2,11 +2,15 @@
 <feature
       id="ranger_plugin_feature"
       label="Ranger plugin"
-      version="1.0.0.rc1"
+      version="1.0.0.rc2"
       plugin="net.ranger">
 
-   <description url="https://code.google.com/p/ranger-plugin/">
-      Ranger is an eclipse plugin for finding tests - and thus functionality - that may pass through a given method in your code base. It will help you anticipate the impact of code changes, both functional and performance-related, allowing you to perform some smoke tests on core functionality, before actually breaking it!
+   <description url="http://emersonloureiro.github.io/ranger-plugin/">
+      Ranger is an eclipse plugin for finding tests - and thus functionality
+- that may pass through a given method in your code base. It
+will help you anticipate the impact of code changes, both functional
+and performance-related, allowing you to perform some smoke tests
+on core functionality, before actually breaking it!
    </description>
 
    <license url="none">
@@ -39,7 +43,7 @@
          id="net.ranger-junit"
          download-size="0"
          install-size="0"
-         version="1.0.0.rc1"
+         version="1.0.0.rc2"
          unpack="false"/>
 
 </feature>

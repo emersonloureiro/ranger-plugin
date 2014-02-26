@@ -20,14 +20,19 @@ public class JUnitTestChecker implements TestChecker {
 
 	private static final String JUNIT_TEST_METHOD_PREFIX = "test";
 	private static final String JUNIT_TEST_CASE_CLASS_QUALIFIED_NAME = "junit.framework.TestCase";
-	private static final String JUNIT_TEST_ANNOTATION = "Test";
+	static final String JUNIT_TEST_ANNOTATION = "Test";
 	private static final String JUNIT_IGNORE_TEST_ANNOTATION = "Ignore";
+	static final String JUNIT_RUN_WITH_ANNOTATION = "RunWith";
 
 	/** {@inheritDoc} */
 	@Override
 	public boolean isTest(Source source) {
-		return (source.getJavaElement() instanceof IMethod) && (source.getName().startsWith(JUNIT_TEST_METHOD_PREFIX) || this.isTestAnnotated(source))
-				&& (this.isInsideJUnitTestClass(source));
+		try {
+			return (source.getJavaElement() instanceof IMethod) && (source.getName().startsWith(JUNIT_TEST_METHOD_PREFIX) || this.isTestAnnotated(source))
+					&& (this.isInsideJUnitTestClass(source));
+		} catch (JavaModelException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	/** {@inheritDoc} */
@@ -49,17 +54,25 @@ public class JUnitTestChecker implements TestChecker {
 		return "JUnit";
 	}
 
-	private boolean isTestAnnotated(Source source) {
-		IAnnotation testAnnotation = ((IMethod) source.getJavaElement()).getAnnotation(JUNIT_TEST_ANNOTATION);
-		return testAnnotation != null && testAnnotation.exists();
+	private boolean isTestAnnotated(Source source) throws JavaModelException {
+		for (IAnnotation annotationObject : ((IMethod) source.getJavaElement()).getAnnotations()) {
+			String annotationName = annotationObject.getElementName();
+			if (annotationName.equals("org.junit." + JUNIT_TEST_ANNOTATION) || annotationName.equals(JUNIT_TEST_ANNOTATION)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private boolean isInsideJUnitTestClass(Source source) {
-		boolean insideUnitTest = false;
 		// First, get the type of the compilation unit being checked
 		IType mainClass = source.getJavaFile().getCompilationUnit().findPrimaryType();
-
 		try {
+			if (hasRunWithAnnotation(mainClass)) {
+				return true;
+			}
+
+			boolean insideUnitTest = false;
 			// TODO REFC: Introduce a hierarchy cache under
 			// junit.framework.TestCase to speedup the search
 
@@ -73,12 +86,21 @@ public class JUnitTestChecker implements TestChecker {
 				IType superClass = superClasses[i];
 				// ...stopping when we find the JUnit junit.framework.TestCase
 				// class
-				insideUnitTest = superClass.getFullyQualifiedName() != null && superClass.getFullyQualifiedName().equals(JUNIT_TEST_CASE_CLASS_QUALIFIED_NAME);
+				insideUnitTest = (hasRunWithAnnotation(superClass)) || (superClass.getFullyQualifiedName() != null && superClass.getFullyQualifiedName().equals(JUNIT_TEST_CASE_CLASS_QUALIFIED_NAME));
 			}
+			return insideUnitTest;
 		} catch (JavaModelException e) {
 			throw new RuntimeException(e);
 		}
+	}
 
-		return insideUnitTest;
+	private boolean hasRunWithAnnotation(IType type) throws JavaModelException {
+		for (IAnnotation annotationObject : type.getAnnotations()) {
+			String annotationName = annotationObject.getElementName();
+			if (annotationName.equals("org.junit.runner" + JUNIT_RUN_WITH_ANNOTATION) || annotationName.equals(JUNIT_RUN_WITH_ANNOTATION)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Ranger JUnit
 Bundle-SymbolicName: net.ranger-junit;singleton:=true
-Bundle-Version: 1.0.0.rc1
+Bundle-Version: 1.0.0.rc2
 Bundle-Activator: net.ranger.extensions.junit.RangerJUnitActivator
 Require-Bundle: org.eclipse.core.runtime,
  net.ranger;bundle-version="1.0.0",
