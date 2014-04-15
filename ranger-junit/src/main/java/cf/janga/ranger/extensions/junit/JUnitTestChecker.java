@@ -28,7 +28,8 @@ public class JUnitTestChecker implements TestChecker {
 	@Override
 	public boolean isTest(Source source) {
 		try {
-			return (source.getJavaElement() instanceof IMethod) && (source.getName().startsWith(JUNIT_TEST_METHOD_PREFIX) || this.isTestAnnotated(source))
+			return (source.getJavaElement() instanceof IMethod)
+					&& (source.getName().startsWith(JUNIT_TEST_METHOD_PREFIX) || this.isTestAnnotated(source))
 					&& (this.isInsideJUnitTestClass(source));
 		} catch (JavaModelException e) {
 			throw new RuntimeException(e);
@@ -86,7 +87,9 @@ public class JUnitTestChecker implements TestChecker {
 				IType superClass = superClasses[i];
 				// ...stopping when we find the JUnit junit.framework.TestCase
 				// class
-				insideUnitTest = (hasRunWithAnnotation(superClass)) || (superClass.getFullyQualifiedName() != null && superClass.getFullyQualifiedName().equals(JUNIT_TEST_CASE_CLASS_QUALIFIED_NAME));
+				insideUnitTest = (hasRunWithAnnotation(superClass))
+						|| (superClass.getFullyQualifiedName() != null && superClass.getFullyQualifiedName().equals(
+								JUNIT_TEST_CASE_CLASS_QUALIFIED_NAME));
 			}
 			return insideUnitTest;
 		} catch (JavaModelException e) {

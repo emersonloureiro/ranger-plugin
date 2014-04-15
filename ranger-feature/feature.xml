@@ -2,8 +2,8 @@
 <feature
       id="ranger_plugin_feature"
       label="Ranger plugin"
-      version="1.0.0.rc2"
-      plugin="net.ranger">
+      version="1.0.1"
+      plugin="cf.janga.ranger">
 
    <description url="http://emersonloureiro.github.io/ranger-plugin/">
       Ranger is an eclipse plugin for finding tests - and thus functionality
@@ -33,17 +33,17 @@ on core functionality, before actually breaking it!
    </requires>
 
    <plugin
-         id="net.ranger"
+         id="cf.janga.ranger"
          download-size="0"
          install-size="0"
-         version="1.0.0.rc1"
+         version="1.0.1"
          unpack="false"/>
 
    <plugin
-         id="net.ranger-junit"
+         id="cf.janga.ranger-junit"
          download-size="0"
          install-size="0"
-         version="1.0.0.rc2"
+         version="1.0.1"
          unpack="false"/>
 
 </feature>

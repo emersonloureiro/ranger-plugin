@@ -1,18 +1,14 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Ranger
-Bundle-SymbolicName: net.ranger;singleton:=true
-Bundle-Version: 1.0.0.rc1
+Bundle-SymbolicName: cf.janga.ranger;singleton:=true
+Bundle-Version: 1.0.1
 Bundle-Activator: cf.janga.ranger.plugin.RangerPlugin
 Export-Package: cf.janga.ranger.constraint,
  cf.janga.ranger.core,
  cf.janga.ranger.extensions,
  cf.janga.ranger.plugin,
- cf.janga.ranger.plugin.actions,
- cf.janga.ranger.plugin.gui,
- cf.janga.ranger.plugin.integration,
- cf.janga.ranger.search,
- cf.janga.ranger.view
+ cf.janga.ranger.search
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,

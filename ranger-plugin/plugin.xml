@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   <extension-point id="net.ranger.extensions.testChecker" name="TestChecker" schema="schema/net.ranger.extensions.testChecker.exsd"/>
+   <extension-point id="cf.janga.ranger.extensions.testChecker" name="TestChecker" schema="schema/cf.janga.ranger.extensions.testChecker.exsd"/>
 	<!-- PLUGIN VIEW -->
 	<extension point="org.eclipse.ui.views">
 		<category id="Ranger" name="Ranger">
@@ -10,14 +10,14 @@
 		      category="Ranger"
 		      class="cf.janga.ranger.plugin.gui.SearchView"
 		      icon="icons/arrow-split.png"
-		      id="net.ranger.plugin.gui.SearchView"
+		      id="cf.janga.ranger.plugin.gui.SearchView"
 		      name="Ranger">
 		</view>
 	</extension>
 	<extension point="org.eclipse.ui.perspectiveExtensions">
 		<perspectiveExtension targetID="org.eclipse.jdt.ui.JavaPerspective">
 			<view
-			     id="net.ranger.plugin.gui.SearchView"
+			     id="cf.janga.ranger.plugin.gui.SearchView"
 			     ratio="0.5"
 			     relationship="right"
 			     relative="org.eclipse.ui.views.TaskList">
@@ -31,7 +31,7 @@
 	
 	<!-- PREFERENCE PAGE -->
 	<extension point="org.eclipse.ui.preferencePages">
-		<page class="cf.janga.ranger.plugin.gui.SearchViewPreferencePage" id="net.ranger.plugin.gui.SearchViewPreferencePage" name="Ranger">
+		<page class="cf.janga.ranger.plugin.gui.SearchViewPreferencePage" id="cf.janga.ranger.plugin.gui.SearchViewPreferencePage" name="Ranger">
 		</page>
 	</extension>
 	<extension point="org.eclipse.core.runtime.preferences">
@@ -44,21 +44,21 @@
 	<!-- COMMANDS -->
 	<extension point="org.eclipse.ui.bindings">
 		<key 
-			actionId="net.ranger.plugin.actions.StartSearchAction"
-			commandId="net.ranger.plugin.commands.search.startSearch" 
+			actionId="cf.janga.ranger.plugin.actions.StartSearchAction"
+			commandId="cf.janga.ranger.plugin.commands.search.startSearch" 
 			contextId="org.eclipse.ui.contexts.window" 
 			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
 			sequence="Ctrl+Alt+T">
 		</key>
 	</extension>
 	<extension point="org.eclipse.ui.commands">
-		<category id="net.ranger.plugin.commands.search" name="Search">
+		<category id="cf.janga.ranger.plugin.commands.search" name="Search">
 		</category>
-		<command categoryId="net.ranger.plugin.commands.search" id="net.ranger.plugin.commands.search.startSearch" name="Start Search">
+		<command categoryId="cf.janga.ranger.plugin.commands.search" id="cf.janga.ranger.plugin.commands.search.startSearch" name="Start Search">
 		</command>
 	</extension>
 	<extension point="org.eclipse.ui.handlers">
-		<handler class="cf.janga.ranger.plugin.gui.StartSearchCommandHandler" commandId="net.ranger.plugin.commands.search.startSearch">
+		<handler class="cf.janga.ranger.plugin.gui.StartSearchCommandHandler" commandId="cf.janga.ranger.plugin.commands.search.startSearch">
 		</handler>
 	</extension>
 	
@@ -69,9 +69,9 @@
 			   class="cf.janga.ranger.plugin.gui.StartSearchPopupMenuItem"
 			   icon="icons/arrow-split.png"
 			   enablesFor="1"
-			   id="net.ranger.plugin.gui.StartSearchPopupMenuItem"
+			   id="cf.janga.ranger.plugin.gui.StartSearchPopupMenuItem"
 			   label="Search Tests"
-			   definitionId="net.ranger.plugin.commands.search.startSearch"
+			   definitionId="cf.janga.ranger.plugin.commands.search.startSearch"
 			   tooltip="Search for tests directly or indirectly affected by the selected method">
 			</action> 
 		</objectContribution>    
