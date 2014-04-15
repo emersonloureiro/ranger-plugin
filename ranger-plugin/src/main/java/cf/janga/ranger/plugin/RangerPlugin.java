@@ -28,7 +28,7 @@ public class RangerPlugin extends AbstractUIPlugin {
 	// The plug-in ID
 	public static final String PLUGIN_ID = "com.im.ranger"; //$NON-NLS-1$
 
-	private static final String TEST_CHECKER_EXTENSION_ID = "net.ranger.extensions.testChecker";
+	private static final String TEST_CHECKER_EXTENSION_ID = "cf.janga.ranger.extensions.testChecker";
 
 	// The shared instance
 	private static RangerPlugin plugin;
