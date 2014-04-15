@@ -8,7 +8,7 @@
 		</category>
 		<view
 		      category="Ranger"
-		      class="net.ranger.plugin.gui.SearchView"
+		      class="cf.janga.ranger.plugin.gui.SearchView"
 		      icon="icons/arrow-split.png"
 		      id="net.ranger.plugin.gui.SearchView"
 		      name="Ranger">
@@ -31,11 +31,11 @@
 	
 	<!-- PREFERENCE PAGE -->
 	<extension point="org.eclipse.ui.preferencePages">
-		<page class="net.ranger.plugin.gui.SearchViewPreferencePage" id="net.ranger.plugin.gui.SearchViewPreferencePage" name="Ranger">
+		<page class="cf.janga.ranger.plugin.gui.SearchViewPreferencePage" id="net.ranger.plugin.gui.SearchViewPreferencePage" name="Ranger">
 		</page>
 	</extension>
 	<extension point="org.eclipse.core.runtime.preferences">
-		<initializer class="net.ranger.plugin.gui.PreferenceInitializer">
+		<initializer class="cf.janga.ranger.plugin.gui.PreferenceInitializer">
 		</initializer>
 	</extension>
 	<extension point="org.eclipse.ui.propertiesView">
@@ -58,7 +58,7 @@
 		</command>
 	</extension>
 	<extension point="org.eclipse.ui.handlers">
-		<handler class="net.ranger.plugin.gui.StartSearchCommandHandler" commandId="net.ranger.plugin.commands.search.startSearch">
+		<handler class="cf.janga.ranger.plugin.gui.StartSearchCommandHandler" commandId="net.ranger.plugin.commands.search.startSearch">
 		</handler>
 	</extension>
 	
@@ -66,7 +66,7 @@
 	<extension point="org.eclipse.ui.popupMenus">
 		<objectContribution adaptable="true" id="trackTest.popupMenus" objectClass="org.eclipse.core.resources.IFile" nameFilter="*.java">
 			<action
-			   class="net.ranger.plugin.gui.StartSearchPopupMenuItem"
+			   class="cf.janga.ranger.plugin.gui.StartSearchPopupMenuItem"
 			   icon="icons/arrow-split.png"
 			   enablesFor="1"
 			   id="net.ranger.plugin.gui.StartSearchPopupMenuItem"

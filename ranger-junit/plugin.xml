@@ -4,7 +4,7 @@
    <extension
          point="net.ranger.extensions.testChecker">
       <testChecker
-            class="net.ranger.extensions.junit.JUnitTestChecker">
+            class="cf.janga.ranger.extensions.junit.JUnitTestChecker">
       </testChecker>
    </extension>
 
