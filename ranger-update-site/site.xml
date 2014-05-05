@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <description name="Ranger Plugin" url="https://github.com/emersonloureiro/ranger-plugin/tree/master/ranger-update-site">
+   <description name="Ranger Plugin" url="http://dl.bintray.com/ranger/eclipse/">
       Update site for Ranger, the eclipse plugin for finding tests - and thus functionality - that may pass through a given method in your code base.
    </description>
    <feature url="features/ranger_plugin_feature_1.0.1.jar" id="ranger_plugin_feature" version="1.0.1">
