@@ -36,7 +36,7 @@ A central element of Ranger is being able to identify whether a given method, pa
 
 This will install both the core Ranger plugin, as well as the JUnit Test Checker plugin automatically. Less hassle!
 
-http://ranger-plugin.googlecode.com/svn/project/ranger-update-site
+http://dl.bintray.com/ranger/eclipse/1.0.1/
 
 ## Manually
 
