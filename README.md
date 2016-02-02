@@ -41,7 +41,3 @@ http://ranger-plugin.googlecode.com/svn/project/ranger-update-site
 ## Manually
 
 Navigate to [this](https://github.com/emersonloureiro/ranger-plugin/tree/master/ranger-update-site/plugins) page, download the jars, and drop them into the _plugins_ folder of your Eclipse installation. Don't forget to restart Eclipse!
-
-# Delving into Ranger: How to Implement Your Own Test Checker Plugins?
-
-TODO
