@@ -2,7 +2,7 @@
 
 Ranger is an eclipse plugin for finding tests - and thus functionality - that may pass through a given method in your code base. It will help you anticipate the impact of code changes, both functional and performance-related, allowing you to perform some smoke tests on core functionality, before actually breaking it!
 
-_Current version is 1.0.1 (works on Juno and Kepler - sorry Indigo users)_
+Current version is 1.0.1 (requires Eclipse Juno or newer).
 
 # The Plugin
 
