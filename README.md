@@ -4,7 +4,23 @@ Ranger is an eclipse plugin for finding tests - and thus functionality - that ma
 
 Current version is 1.0.1 (requires Eclipse Juno or newer).
 
-# The Plugin
+# Installation
+
+## Eclipse update site
+
+This will install both the core Ranger plugin, as well as the JUnit Test Checker plugin automatically. Less hassle!
+
+http://dl.bintray.com/ranger/eclipse/1.0.1/
+
+During the install, you may be faced with the dialog box below. Don't worry, you're safe to hit Ok and proceed with the installation
+
+![](http://i.imgur.com/Nj4NxMj.png)
+
+## Manually
+
+Navigate to [this](https://github.com/emersonloureiro/ranger-plugin/tree/master/ranger-update-site/plugins) page, download the jars, and drop them into the _plugins_ folder of your Eclipse installation. Don't forget to restart Eclipse!
+
+# Using the Plugin
 
 To search for tests, simply place the cursor either on the method body or its signature, and run the search by right clicking on the Java file and selection the 'Search Tests' item. Alternatively, you can press 'Ctrl + Alt + T'.
 
@@ -29,15 +45,3 @@ To provide some customization, and prevent some potentially very long-running se
 ![](http://i.imgur.com/jppC74Z.png)
 
 A central element of Ranger is being able to identify whether a given method, part of the call hierarchy for the method for which tests are being searched, is a test or not. Different testing frameworks exist though, which may be further extended in a given code base, and the plugin must be able to recognize a test regardless of the framework. In Ranger, this logic is encapsulated into a 'Test Checker, which is actually an extension point of the plugin. Having said that, Ranger can only recognize JUnit tests, for example, if the JUnit Test Checker plugin - which is the only Test Checker implementation so far - is also installed. In short, in order to actually use Ranger, you need to install both the plugin itself and at least one Test Checker plugin. In fact, Ranger won't even start-up if that's not the case. As long as Test Checkers are installed, Ranger will automatically find and load them all.
-
-# Installation
-
-## Eclipse update site
-
-This will install both the core Ranger plugin, as well as the JUnit Test Checker plugin automatically. Less hassle!
-
-http://dl.bintray.com/ranger/eclipse/1.0.1/
-
-## Manually
-
-Navigate to [this](https://github.com/emersonloureiro/ranger-plugin/tree/master/ranger-update-site/plugins) page, download the jars, and drop them into the _plugins_ folder of your Eclipse installation. Don't forget to restart Eclipse!
