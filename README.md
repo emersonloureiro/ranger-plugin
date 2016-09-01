@@ -14,7 +14,7 @@ http://dl.bintray.com/ranger/eclipse/1.0.1/
 
 During the install, you may be faced with the dialog box below. Don't worry, you're safe to hit Ok and proceed with the installation
 
-![](http://i.imgur.com/Nj4NxMj.png)
+<img src="http://i.imgur.com/Nj4NxMj.png" width=450px/>
 
 ## Manually
 
