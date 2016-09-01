@@ -1,10 +1,12 @@
 # Ranger
 
-Ranger is an eclipse plugin for finding tests - and thus functionality - that may pass through a given method in your code base. It will help you anticipate the impact of code changes, both functional and performance-related, allowing you to perform some smoke tests on core functionality, before actually breaking it!
+Ranger is an eclipse plugin for finding tests - and thus functionality - that may pass through a given method in your Java code base. It will help you anticipate the impact of code changes, both functional and performance-related, allowing you to perform some smoke tests on core functionality, before actually breaking it!
 
-Current version is 1.0.1 (requires Eclipse Juno or newer).
+Current version is 1.0.1, and requires Eclipse Juno or later. Currently Ranger only supports JUnit tests.
 
 # Installation
+
+Installation consists of both the core plugin - i.e., the GUI, searching algorithm, etc - and one one or more _test checker_ plugins, which define things specific to a testing framework - e.g., how a class/method can be identified as a test. 
 
 ## Eclipse update site
 
@@ -43,5 +45,3 @@ One search cannot be started while another is being processed. If that's the cas
 To provide some customization, and prevent some potentially very long-running searches, there is an option to define the maximum depth allowed. So, a maximum search depth of 1, for example, will only return tests which are directly invoking the method you have searched for. The default value is 5, but you may want to adjust that if your code base is very large. The maximum search depth can be set either via the context menu of the results view or the plugin's preference page (below).
 
 ![](http://i.imgur.com/jppC74Z.png)
-
-A central element of Ranger is being able to identify whether a given method, part of the call hierarchy for the method for which tests are being searched, is a test or not. Different testing frameworks exist though, which may be further extended in a given code base, and the plugin must be able to recognize a test regardless of the framework. In Ranger, this logic is encapsulated into a 'Test Checker, which is actually an extension point of the plugin. Having said that, Ranger can only recognize JUnit tests, for example, if the JUnit Test Checker plugin - which is the only Test Checker implementation so far - is also installed. In short, in order to actually use Ranger, you need to install both the plugin itself and at least one Test Checker plugin. In fact, Ranger won't even start-up if that's not the case. As long as Test Checkers are installed, Ranger will automatically find and load them all.
